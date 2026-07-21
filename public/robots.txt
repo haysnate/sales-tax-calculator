@@ -1,0 +1,8 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+Sitemap: https://salestaxcalculatorhq.com/sitemap.xml

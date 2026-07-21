@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>About - Sales Tax Calculator</title>
+  <meta name="description" content="About Sales Tax Calculator: a fast, private, in-browser tool with July 2026 state and average local sales tax rates for all 50 states and DC." />
+  <link rel="canonical" href="https://salestaxcalculatorhq.com/about.html" />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5812381332044887" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-5812381332044887" />
+</head>
+<body>
+  <main class="doc">
+    <a class="doc__brand" href="index.html" aria-label="Sales Tax Calculator home">
+      <span class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.83z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+      </span>
+      <span>Sales Tax Calculator</span>
+    </a>
+
+    <h1>About Sales Tax Calculator</h1>
+    <p>Sales Tax Calculator answers two everyday questions instantly: "what will this cost with tax?" and "how much of this total was tax?" Pick your state, and the tool applies the 2026 state rate plus your state's average local rate, both of which you can override with your city's exact rate if you know it.</p>
+    <h2>Built for both directions</h2>
+    <p>Add mode starts from a sticker price and adds state and local tax. Reverse mode starts from a receipt total and works backwards to the pre-tax price, which is handy for expense reports, invoices, and bookkeeping.</p>
+    <h2>Real 2026 rates, all 51 jurisdictions</h2>
+    <p>Rates come from the Tax Foundation's July 1, 2026 midyear table: the statutory state rate plus the population-weighted average local rate for each state and DC. Special cases are handled, including the five states with no statewide sales tax, Alaska's local-only taxes, and the mandatory statewide local rates baked into California, Utah, and Virginia figures. Each state also has its own page, like the <a href="texas-sales-tax-calculator.html">Texas sales tax calculator</a>, with rates preloaded.</p>
+    <h2>Private and free</h2>
+    <p>Every calculation runs locally in your browser. Nothing you enter is uploaded, stored, or sent anywhere. No sign-up, nothing to install. For details on the cookies used by advertising, see our <a href="privacy.html">Privacy Policy</a>.</p>
+    <h2>Important disclaimer</h2>
+    <p><strong>This calculator is for general informational and educational purposes only. It does not provide, and must not be relied on as, tax advice, legal advice, or financial advice.</strong></p>
+    <ul>
+      <li><strong>Estimates only.</strong> Local sales tax rates vary by city, county, and district. The average local rate is a statewide average, so your register receipt may differ.</li>
+      <li><strong>Product rules vary.</strong> Many states exempt or discount groceries, clothing, or medicine, and some tax services differently. This tool applies one rate to the full amount.</li>
+      <li><strong>Rates change.</strong> Figures reflect the Tax Foundation's July 1, 2026 table. States and cities adjust rates during the year.</li>
+      <li><strong>No professional relationship.</strong> Using this site does not create any advisor or accountant relationship.</li>
+      <li><strong>No liability.</strong> We accept no liability for decisions made based on this tool's output.</li>
+    </ul>
+    <p>For filing obligations, business tax collection, or anything with money on the line, consult your state's department of revenue or a tax professional.</p>
+
+    <a class="back" href="index.html">← Back to the calculator</a>
+  </main>
+
+  <footer class="site-footer">
+    <span class="copy">© <span id="year">2026</span> Sales Tax Calculator</span>
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy</a>
+  </footer>
+  <script>{const y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();}</script>
+</body>
+</html>

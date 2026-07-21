@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Georgia Sales Tax Calculator 2026 - 7.56% Combined Rate</title>
+  <meta name="description" content="Free Georgia sales tax calculator with July 2026 rates. The Georgia state sales tax rate is 4%. Local rates average 3.56%, for a combined average of 7.56%. Add tax to a price or work backwards from a total." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="canonical" href="https://salestaxcalculatorhq.com/georgia-sales-tax-calculator.html" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Georgia Sales Tax Calculator 2026 - 7.56% Combined Rate" />
+  <meta property="og:description" content="Add sales tax to a price or work backwards from a total. 2026 state and average local rates built in." />
+  <meta property="og:url" content="https://salestaxcalculatorhq.com/georgia-sales-tax-calculator.html" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5812381332044887" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-5812381332044887" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Sales Tax Calculator",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free sales tax calculator with 2026 state and average local rates for all 50 states and DC, including a reverse mode that removes tax from a total."
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the sales tax in Georgia?", "acceptedAnswer": {"@type": "Answer", "text": "The statewide rate is 4%. With local taxes included, the average combined rate is 7.56% as of July 1, 2026, though your exact rate depends on your city and county."}}, {"@type": "Question", "name": "How much is sales tax on a $100 purchase in Georgia?", "acceptedAnswer": {"@type": "Answer", "text": "At the average combined rate of 7.56%, sales tax on a $100 purchase in Georgia is $7.56, for a total of $107.56."}}, {"@type": "Question", "name": "Does Georgia have local sales taxes?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Local sales taxes in Georgia average 3.56% on top of the state rate, and the exact rate varies by city and county."}}]}
+  </script>
+</head>
+<body>
+  <div class="layout">
+    <main class="card" role="main">
+      <header class="card__header">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.83z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>
+          </svg>
+        </div>
+        <div class="card__heading">
+          <h1 id="pageH1">Georgia Sales Tax Calculator</h1>
+          <p class="subtitle">2026 rates: state 4%, average local 3.56%.</p>
+        </div>
+      </header>
+
+      <div class="card__body">
+        <div class="inputs">
+          <div class="field">
+            <label id="modeLabel">What do you want to do?</label>
+            <div class="seg" role="group" aria-labelledby="modeLabel">
+              <button type="button" id="modeAdd" class="active">Add tax to a price</button>
+              <button type="button" id="modeReverse">Remove tax from a total</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="amount" id="amountLabel">Price before tax</label>
+            <div class="input-wrap"><span class="affix">$</span><input id="amount" inputmode="decimal" type="text" value="0" autocomplete="off"></div>
+          </div>
+
+          <div class="field">
+            <label for="state">State</label>
+            <select id="state" class="input-el" aria-label="State"></select>
+          </div>
+
+          <div class="field">
+            <label for="localRate">Local rate <span style="font-weight:500">(county + city)</span></label>
+            <div class="input-wrap"><input id="localRate" inputmode="decimal" type="text" value="0" autocomplete="off"><span class="affix affix--suffix">%</span></div>
+            <p class="hint" id="localHint">Auto-filled with your state's average local rate. If you know your city's exact rate, enter it here.</p>
+          </div>
+        </div>
+
+        <section class="results" aria-live="polite">
+          <div class="result-head">
+            <span class="result-label" id="resultLabel">Total price with tax</span>
+            <span class="result-value" id="resultValue">$0.00</span>
+          </div>
+
+          <div class="breakdown">
+            <div class="donut" id="donut" aria-hidden="true"></div>
+            <ul class="legend">
+              <li><span class="dot" style="background:var(--c-price)"></span><span id="legPriceLabel">Price</span> <b id="legPrice">$0.00</b></li>
+              <li><span class="dot" style="background:var(--c-state)"></span>State tax <b id="legState">$0.00</b></li>
+              <li id="legLocalRow"><span class="dot" style="background:var(--c-local)"></span>Local tax <b id="legLocal">$0.00</b></li>
+            </ul>
+          </div>
+
+          <div class="rrow"><span id="rBaseLabel">Price before tax</span><b id="rBase">$0.00</b></div>
+          <div class="rrow"><span>State tax (<span id="rStateRate">0%</span>)</span><b id="rState">$0.00</b></div>
+          <div class="rrow" id="rLocalRow"><span>Local tax (<span id="rLocalRate">0%</span>)</span><b id="rLocal">$0.00</b></div>
+          <div class="rrow total"><span>Total sales tax</span><b id="rTax">$0.00</b></div>
+          <div class="rrow"><span>Combined rate</span><b id="rCombined">0%</b></div>
+          <div class="rrow net"><span id="rTotalLabel">Total price</span><b id="rTotal">$0.00</b></div>
+
+          <p class="tax-note" id="taxNote"></p>
+        </section>
+      </div>
+    </main>
+
+    <!-- Google AdSense slot (added at monetization step) -->
+    <div class="adslot" aria-hidden="true">Ad space</div>
+
+    <section class="doc" style="max-width:760px;padding:26px 28px">
+      <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:10px">Sales tax in Georgia (2026)</h2>
+      <p style="font-size:0.94rem">The Georgia state sales tax rate is 4%. Local rates average 3.56%, for a combined average of 7.56%. Rates from the Tax Foundation's July 1, 2026 midyear table.</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Purchase</th><th>Sales tax (avg 7.56%)</th><th>Total</th></tr></thead>
+        <tbody>
+          <tr><td>$100.00</td><td>$7.56</td><td>$107.56</td></tr>
+          <tr><td>$500.00</td><td>$37.80</td><td>$537.80</td></tr>
+          <tr><td>$1,000.00</td><td>$75.60</td><td>$1,075.60</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="faq">
+        <h3>What is the sales tax in Georgia?</h3>
+        <p>The statewide rate is 4%. With local taxes included, the average combined rate is 7.56% as of July 1, 2026, though your exact rate depends on your city and county.</p>
+        <h3>How much is sales tax on a $100 purchase in Georgia?</h3>
+        <p>At the average combined rate of 7.56%, sales tax on a $100 purchase in Georgia is $7.56, for a total of $107.56.</p>
+        <h3>Does Georgia have local sales taxes?</h3>
+        <p>Yes. Local sales taxes in Georgia average 3.56% on top of the state rate, and the exact rate varies by city and county.</p>
+      </div>
+      <p style="font-size:0.9rem;margin-top:10px"><a href="index.html">All states</a> · <a href="guide.html">How US sales tax works</a></p>
+    </section>
+
+    <footer class="site-footer">
+      <span class="copy">© <span id="year">2026</span> Sales Tax Calculator</span>
+      <a href="guide.html">Guide</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+    </footer>
+  </div>
+
+  <script>{const y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();}</script>
+  <script>window.PRESET_STATE = "GA";</script>
+  <script src="script.js"></script>
+</body>
+</html>
