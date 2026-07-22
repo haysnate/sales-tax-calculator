@@ -30,7 +30,7 @@ index_template = (PUB / "index.html").read_text(encoding="utf-8")
 
 # ---- static state links block (for index and each state page) ----
 links = " ".join(
-    f'<a href="{s["slug"]}-sales-tax-calculator.html">{s["name"]}</a>'
+    f'<a href="{s["slug"]}-sales-tax-calculator">{s["name"]}</a>'
     for s in sorted(states.values(), key=lambda x: x["name"])
 )
 index_out = re.sub(r'<p id="stateLinks"[^>]*>.*?</p>',
@@ -44,6 +44,7 @@ for code, s in states.items():
     combined = s["state"] + s["local"]
     cr, sr, lr = fmt_rate(combined), fmt_rate(s["state"]), fmt_rate(s["local"])
     fname = f"{slug}-sales-tax-calculator.html"
+    clean = f"{slug}-sales-tax-calculator"  # Cloudflare Pages serves the extensionless URL
 
     if s["none"] and s["local"] > 0:
         rate_sentence = f"{name} has no statewide sales tax, but local governments levy their own. The average local rate is {lr}%, so a typical purchase is taxed at about {cr}%."
@@ -97,9 +98,9 @@ for code, s in states.items():
     page = index_template
     page = page.replace("<title>Sales Tax Calculator 2026 - All 50 States &amp; Local Rates</title>", f"<title>{title}</title>")
     page = page.replace('content="Free sales tax calculator with July 2026 rates for all 50 states and DC. Add tax to a price or work backwards from a total, with state and average local rates built in."', f'content="{desc}"')
-    page = page.replace('href="https://salestaxcalculatorhq.com/" />', f'href="{DOMAIN}/{fname}" />')
+    page = page.replace('href="https://salestaxcalculatorhq.com/" />', f'href="{DOMAIN}/{clean}" />')
     page = page.replace('content="Sales Tax Calculator 2026 - All 50 States &amp; Local Rates" />', f'content="{title}" />')
-    page = page.replace('content="https://salestaxcalculatorhq.com/" />', f'content="{DOMAIN}/{fname}" />')
+    page = page.replace('content="https://salestaxcalculatorhq.com/" />', f'content="{DOMAIN}/{clean}" />')
     page = page.replace('<h1 id="pageH1">Sales Tax Calculator</h1>', f'<h1 id="pageH1">{name} Sales Tax Calculator</h1>')
     page = page.replace('<p class="subtitle">2026 rates for every state, plus local taxes.</p>', f'<p class="subtitle">2026 rates: state {sr}%, average local {lr}%.</p>' if not (s["none"] and s["local"]==0) else '<p class="subtitle">No sales tax. Lucky you.</p>')
     page = page.replace('<script src="script.js"></script>', f'<script>window.PRESET_STATE = "{code}";</script>\n  <script src="script.js"></script>')
@@ -123,7 +124,7 @@ for code, s in states.items():
         <h3>Does {name} have local sales taxes?</h3>
         <p>{faq3}</p>
       </div>
-      <p style="font-size:0.9rem;margin-top:10px"><a href="index.html">All states</a> · <a href="guide.html">How US sales tax works</a></p>
+      <p style="font-size:0.9rem;margin-top:10px"><a href="/">All states</a> · <a href="guide">How US sales tax works</a></p>
     </section>
 '''
     # swap the state-links section for the state info section, and add FAQ schema
@@ -132,9 +133,9 @@ for code, s in states.items():
     (PUB / fname).write_text(page, encoding="utf-8")
 
 # ---- sitemap ----
-urls = [f"{DOMAIN}/", f"{DOMAIN}/guide.html", f"{DOMAIN}/about.html", f"{DOMAIN}/privacy.html"]
-urls += [f"{DOMAIN}/{s['slug']}-sales-tax-calculator.html" for s in sorted(states.values(), key=lambda x: x["name"])]
-prio = {f"{DOMAIN}/": "1.0", f"{DOMAIN}/guide.html": "0.8", f"{DOMAIN}/about.html": "0.3", f"{DOMAIN}/privacy.html": "0.3"}
+urls = [f"{DOMAIN}/", f"{DOMAIN}/guide", f"{DOMAIN}/about", f"{DOMAIN}/privacy"]
+urls += [f"{DOMAIN}/{s['slug']}-sales-tax-calculator" for s in sorted(states.values(), key=lambda x: x["name"])]
+prio = {f"{DOMAIN}/": "1.0", f"{DOMAIN}/guide": "0.8", f"{DOMAIN}/about": "0.3", f"{DOMAIN}/privacy": "0.3"}
 entries = "\n".join(
     f"  <url>\n    <loc>{u}</loc>\n    <changefreq>{'yearly' if prio.get(u)=='0.3' else 'monthly'}</changefreq>\n    <priority>{prio.get(u,'0.8')}</priority>\n  </url>"
     for u in urls
