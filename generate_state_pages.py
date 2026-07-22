@@ -133,9 +133,9 @@ for code, s in states.items():
     (PUB / fname).write_text(page, encoding="utf-8")
 
 # ---- sitemap ----
-urls = [f"{DOMAIN}/", f"{DOMAIN}/guide", f"{DOMAIN}/about", f"{DOMAIN}/privacy"]
+urls = [f"{DOMAIN}/", f"{DOMAIN}/guide", f"{DOMAIN}/sales-tax-by-state", f"{DOMAIN}/faq", f"{DOMAIN}/about", f"{DOMAIN}/privacy"]
 urls += [f"{DOMAIN}/{s['slug']}-sales-tax-calculator" for s in sorted(states.values(), key=lambda x: x["name"])]
-prio = {f"{DOMAIN}/": "1.0", f"{DOMAIN}/guide": "0.8", f"{DOMAIN}/about": "0.3", f"{DOMAIN}/privacy": "0.3"}
+prio = {f"{DOMAIN}/": "1.0", f"{DOMAIN}/guide": "0.8", f"{DOMAIN}/sales-tax-by-state": "0.7", f"{DOMAIN}/faq": "0.5", f"{DOMAIN}/about": "0.3", f"{DOMAIN}/privacy": "0.3"}
 entries = "\n".join(
     f"  <url>\n    <loc>{u}</loc>\n    <changefreq>{'yearly' if prio.get(u)=='0.3' else 'monthly'}</changefreq>\n    <priority>{prio.get(u,'0.8')}</priority>\n  </url>"
     for u in urls
