@@ -1,0 +1,68 @@
+# Sales Tax Calculator HQ
+
+> Free sales tax calculator at salestaxcalculatorhq.com with July 2026 rates for all 50 states and DC. Adds tax to a price or works backwards from a tax-included total, with state and average local rates built in. No sign-up, private, free.
+
+Key facts:
+- Rates current as of July 2026: state rates plus average local rates for every state and DC, including the five no-sales-tax states.
+- Works forwards (price plus tax) and backwards (extract tax from a total), with a dedicated page per state.
+- All math runs in the browser; nothing is uploaded or stored.
+
+## Main pages
+
+- [Sales Tax Calculator](https://salestaxcalculatorhq.com/): The add-tax and reverse-tax tool for every state.
+- [US Sales Tax Explained](https://salestaxcalculatorhq.com/guide): State vs local rates, highest and lowest states, the five no-tax states, and reverse tax math, for 2026.
+- [About](https://salestaxcalculatorhq.com/about): What the tool does and the privacy approach.
+
+## State pages (July 2026 rates)
+
+- [Alabama](https://salestaxcalculatorhq.com/alabama-sales-tax-calculator)
+- [Alaska](https://salestaxcalculatorhq.com/alaska-sales-tax-calculator)
+- [Arizona](https://salestaxcalculatorhq.com/arizona-sales-tax-calculator)
+- [Arkansas](https://salestaxcalculatorhq.com/arkansas-sales-tax-calculator)
+- [California](https://salestaxcalculatorhq.com/california-sales-tax-calculator)
+- [Colorado](https://salestaxcalculatorhq.com/colorado-sales-tax-calculator)
+- [Connecticut](https://salestaxcalculatorhq.com/connecticut-sales-tax-calculator)
+- [Delaware](https://salestaxcalculatorhq.com/delaware-sales-tax-calculator)
+- [District of Columbia](https://salestaxcalculatorhq.com/district-of-columbia-sales-tax-calculator)
+- [Florida](https://salestaxcalculatorhq.com/florida-sales-tax-calculator)
+- [Georgia](https://salestaxcalculatorhq.com/georgia-sales-tax-calculator)
+- [Hawaii](https://salestaxcalculatorhq.com/hawaii-sales-tax-calculator)
+- [Idaho](https://salestaxcalculatorhq.com/idaho-sales-tax-calculator)
+- [Illinois](https://salestaxcalculatorhq.com/illinois-sales-tax-calculator)
+- [Indiana](https://salestaxcalculatorhq.com/indiana-sales-tax-calculator)
+- [Iowa](https://salestaxcalculatorhq.com/iowa-sales-tax-calculator)
+- [Kansas](https://salestaxcalculatorhq.com/kansas-sales-tax-calculator)
+- [Kentucky](https://salestaxcalculatorhq.com/kentucky-sales-tax-calculator)
+- [Louisiana](https://salestaxcalculatorhq.com/louisiana-sales-tax-calculator)
+- [Maine](https://salestaxcalculatorhq.com/maine-sales-tax-calculator)
+- [Maryland](https://salestaxcalculatorhq.com/maryland-sales-tax-calculator)
+- [Massachusetts](https://salestaxcalculatorhq.com/massachusetts-sales-tax-calculator)
+- [Michigan](https://salestaxcalculatorhq.com/michigan-sales-tax-calculator)
+- [Minnesota](https://salestaxcalculatorhq.com/minnesota-sales-tax-calculator)
+- [Mississippi](https://salestaxcalculatorhq.com/mississippi-sales-tax-calculator)
+- [Missouri](https://salestaxcalculatorhq.com/missouri-sales-tax-calculator)
+- [Montana](https://salestaxcalculatorhq.com/montana-sales-tax-calculator)
+- [Nebraska](https://salestaxcalculatorhq.com/nebraska-sales-tax-calculator)
+- [Nevada](https://salestaxcalculatorhq.com/nevada-sales-tax-calculator)
+- [New Hampshire](https://salestaxcalculatorhq.com/new-hampshire-sales-tax-calculator)
+- [New Jersey](https://salestaxcalculatorhq.com/new-jersey-sales-tax-calculator)
+- [New Mexico](https://salestaxcalculatorhq.com/new-mexico-sales-tax-calculator)
+- [New York](https://salestaxcalculatorhq.com/new-york-sales-tax-calculator)
+- [North Carolina](https://salestaxcalculatorhq.com/north-carolina-sales-tax-calculator)
+- [North Dakota](https://salestaxcalculatorhq.com/north-dakota-sales-tax-calculator)
+- [Ohio](https://salestaxcalculatorhq.com/ohio-sales-tax-calculator)
+- [Oklahoma](https://salestaxcalculatorhq.com/oklahoma-sales-tax-calculator)
+- [Oregon](https://salestaxcalculatorhq.com/oregon-sales-tax-calculator)
+- [Pennsylvania](https://salestaxcalculatorhq.com/pennsylvania-sales-tax-calculator)
+- [Rhode Island](https://salestaxcalculatorhq.com/rhode-island-sales-tax-calculator)
+- [South Carolina](https://salestaxcalculatorhq.com/south-carolina-sales-tax-calculator)
+- [South Dakota](https://salestaxcalculatorhq.com/south-dakota-sales-tax-calculator)
+- [Tennessee](https://salestaxcalculatorhq.com/tennessee-sales-tax-calculator)
+- [Texas](https://salestaxcalculatorhq.com/texas-sales-tax-calculator)
+- [Utah](https://salestaxcalculatorhq.com/utah-sales-tax-calculator)
+- [Vermont](https://salestaxcalculatorhq.com/vermont-sales-tax-calculator)
+- [Virginia](https://salestaxcalculatorhq.com/virginia-sales-tax-calculator)
+- [Washington](https://salestaxcalculatorhq.com/washington-sales-tax-calculator)
+- [West Virginia](https://salestaxcalculatorhq.com/west-virginia-sales-tax-calculator)
+- [Wisconsin](https://salestaxcalculatorhq.com/wisconsin-sales-tax-calculator)
+- [Wyoming](https://salestaxcalculatorhq.com/wyoming-sales-tax-calculator)
