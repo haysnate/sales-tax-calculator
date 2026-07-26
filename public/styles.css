@@ -1,3 +1,13 @@
+/* Inter self-hosted (single variable font, latin subset): removes the
+   render-blocking Google Fonts two-hop chain sitewide */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-var-latin.woff2") format("woff2");
+}
+
 :root {
   --accent: #0284c7;
   --accent-dark: #0369a1;

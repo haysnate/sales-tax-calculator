@@ -26,6 +26,18 @@ def fmt_rate(r):
 def money(n):
     return f"${n:,.2f}"
 
+def write_if_changed(path, content):
+    """Skip identical writes so file mtimes stay honest (sitemap lastmod reads
+    them) and reruns are true no-ops."""
+    if path.exists() and path.read_text(encoding="utf-8") == content:
+        return False
+    path.write_text(content, encoding="utf-8")
+    return True
+
+# data source, verified live 2026-07-26 (real browser: exact report page)
+TF_URL = "https://taxfoundation.org/data/all/state/2026-sales-tax-rates-midyear/"
+TF_LINK = f'<a href="{TF_URL}">Tax Foundation\'s July 1, 2026 midyear table</a>'
+
 index_template = (PUB / "index.html").read_text(encoding="utf-8")
 
 # ---- static state links block (for index and each state page) ----
@@ -36,7 +48,7 @@ links = " ".join(
 index_out = re.sub(r'<p id="stateLinks"[^>]*>.*?</p>',
                    f'<p id="stateLinks" style="font-size:0.9rem;line-height:2">{links}</p>',
                    index_template, flags=re.S)
-(PUB / "index.html").write_text(index_out, encoding="utf-8")
+write_if_changed(PUB / "index.html", index_out)
 
 # ---- per-state pages ----
 for code, s in states.items():
@@ -47,11 +59,19 @@ for code, s in states.items():
     clean = f"{slug}-sales-tax-calculator"  # Cloudflare Pages serves the extensionless URL
 
     if s["none"] and s["local"] > 0:
-        rate_sentence = f"{name} has no statewide sales tax, but local governments levy their own. The average local rate is {lr}%, so a typical purchase is taxed at about {cr}%."
+        # Alaska. The old sentence was a tautology ("average local rate is
+        # 1.82%, so ... taxed at about 1.82%") because state rate is 0; it
+        # shipped in the meta description too (audit 2026-07-26).
+        rate_sentence = f"{name} has no statewide sales tax, but its cities and boroughs levy their own local sales taxes, which average {lr}% statewide. Your actual rate depends on where you buy."
         faq1 = f"{name} has no statewide sales tax. Local governments levy their own sales taxes, which average {lr}% across the state, so most purchases are taxed at a low single-digit rate that varies by city."
     elif s["none"]:
         rate_sentence = f"{name} has no state or local sales tax. The price on the tag is the price you pay."
         faq1 = f"{name} has no state or local sales tax. It is one of the five NOMAD states (New Hampshire, Oregon, Montana, Alaska, Delaware) with no statewide sales tax, and unlike Alaska it allows no local sales taxes either."
+    elif s["get"]:
+        # Hawaii. Lead with the GET truth instead of calling it a "sales tax
+        # rate" and correcting one sentence later (audit 2026-07-26).
+        rate_sentence = f"{name} levies a {sr}% general excise tax (GET) on businesses rather than a true sales tax. It is usually passed through to buyers, so with average local surcharges of {lr}%, purchases effectively carry about {cr}% at the register."
+        faq1 = f"{name} does not levy a traditional sales tax. Its {sr}% general excise tax (GET) falls on businesses and is usually passed on to buyers; with average local surcharges of {lr}%, the effective combined rate is about {cr}% as of July 1, 2026."
     else:
         rate_sentence = f"The {name} state sales tax rate is {sr}%. Local rates average {lr}%, for a combined average of {cr}%."
         faq1 = f"The statewide rate is {sr}%. With local taxes included, the average combined rate is {cr}% as of July 1, 2026, though your exact rate depends on your city and county."
@@ -59,8 +79,7 @@ for code, s in states.items():
     notes = []
     if s["mandatoryLocal"]:
         notes.append(f"The {sr}% state rate shown includes a mandatory statewide local rate of {fmt_rate(s['mandatoryLocal'])}%.")
-    if s["get"]:
-        notes.append("Hawaii technically levies a general excise tax (GET) on businesses rather than a sales tax on buyers; in practice it is usually passed on and works out similarly at the register.")
+    # (Hawaii's GET note now lives in rate_sentence itself, not a trailing note)
     if s["uez"]:
         notes.append("Some New Jersey urban enterprise zones charge half the state rate on qualifying purchases.")
     notes_html = (' ' + " ".join(notes)) if notes else ""
@@ -93,7 +112,21 @@ for code, s in states.items():
     title = f"{name} Sales Tax Calculator 2026 - {cr}% Combined Rate"
     if s["none"] and s["local"] == 0:
         title = f"{name} Sales Tax Calculator 2026 - No Sales Tax"
-    desc = f"Free {name} sales tax calculator with July 2026 rates. {rate_sentence} Add tax to a price or work backwards from a total."
+    if len(title) > 60:  # District of Columbia / Massachusetts overflow the suffix
+        title = f"{name} Sales Tax Calculator 2026 ({cr}%)"
+
+    # short desc branches (<=155 even for District of Columbia; the old
+    # template concatenated rate_sentence and ran 192-258 chars sitewide)
+    if s["none"] and s["local"] > 0:
+        desc = f"Free {name} sales tax calculator, July 2026 rates. No statewide tax; local rates average {lr}%. Add tax to a price or work backwards from a total."
+    elif s["none"]:
+        desc = f"Free {name} sales tax calculator. {name} has no state or local sales tax; the tag price is what you pay. Reverse mode included."
+    elif s["get"]:
+        desc = f"Free {name} sales tax calculator, July 2026 rates: {sr}% GET plus {lr}% average local, about {cr}% at the register. Reverse mode included."
+    elif s["local"] == 0:
+        desc = f"Free {name} sales tax calculator, July 2026 rates: {sr}% statewide with no local add-ons. Add tax to a price or work backwards from a total."
+    else:
+        desc = f"Free {name} sales tax calculator, July 2026 rates: state {sr}%, average local {lr}%. Add tax to a price or work backwards from a total."
 
     page = index_template
     page = page.replace("<title>Sales Tax Calculator 2026 - All 50 States &amp; Local Rates</title>", f"<title>{title}</title>")
@@ -107,7 +140,7 @@ for code, s in states.items():
 
     info = f'''    <section class="doc" style="max-width:760px;padding:26px 28px">
       <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:10px">Sales tax in {name} (2026)</h2>
-      <p style="font-size:0.94rem">{rate_sentence}{notes_html} Rates from the Tax Foundation's July 1, 2026 midyear table.</p>
+      <p style="font-size:0.94rem">{rate_sentence}{notes_html} Rates from the {TF_LINK}.</p>
       <div class="table-wrap">
       <table>
         <thead><tr><th>Purchase</th><th>Sales tax (avg {cr}%)</th><th>Total</th></tr></thead>
@@ -124,22 +157,29 @@ for code, s in states.items():
         <h3>Does {name} have local sales taxes?</h3>
         <p>{faq3}</p>
       </div>
-      <p style="font-size:0.9rem;margin-top:10px"><a href="/">All states</a> · <a href="guide">How US sales tax works</a></p>
+      <p style="font-size:0.9rem;margin-top:10px"><a href="/">All states</a> · <a href="sales-tax-by-state">Rates by state table</a> · <a href="guide">How US sales tax works</a></p>
     </section>
 '''
     # swap the state-links section for the state info section, and add FAQ schema
     page = re.sub(r'    <section class="doc" style="max-width:760px;padding:26px 28px">\n      <h2[^>]*>Sales tax calculator by state</h2>.*?</section>\n', info, page, flags=re.S)
     page = page.replace("  </script>\n</head>", f'  </script>\n  <script type="application/ld+json">\n  {faq_schema}\n  </script>\n</head>')
-    (PUB / fname).write_text(page, encoding="utf-8")
+    write_if_changed(PUB / fname, page)
 
 # ---- sitemap ----
 urls = [f"{DOMAIN}/", f"{DOMAIN}/guide", f"{DOMAIN}/sales-tax-by-state", f"{DOMAIN}/faq", f"{DOMAIN}/about", f"{DOMAIN}/privacy"]
 urls += [f"{DOMAIN}/{s['slug']}-sales-tax-calculator" for s in sorted(states.values(), key=lambda x: x["name"])]
-prio = {f"{DOMAIN}/": "1.0", f"{DOMAIN}/guide": "0.8", f"{DOMAIN}/sales-tax-by-state": "0.7", f"{DOMAIN}/faq": "0.5", f"{DOMAIN}/about": "0.3", f"{DOMAIN}/privacy": "0.3"}
+# lastmod from real file mtimes (honest via write_if_changed above);
+# deprecated priority/changefreq dropped (audit 2026-07-26)
+import datetime, os
+
+def lastmod(u):
+    rel = u.replace(DOMAIN, "").strip("/") or "index"
+    return datetime.date.fromtimestamp(os.path.getmtime(PUB / (rel + ".html"))).isoformat()
+
 entries = "\n".join(
-    f"  <url>\n    <loc>{u}</loc>\n    <changefreq>{'yearly' if prio.get(u)=='0.3' else 'monthly'}</changefreq>\n    <priority>{prio.get(u,'0.8')}</priority>\n  </url>"
+    f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{lastmod(u)}</lastmod>\n  </url>"
     for u in urls
 )
-(PUB / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{entries}\n</urlset>\n', encoding="utf-8")
+write_if_changed(PUB / "sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{entries}\n</urlset>\n')
 
 print(f"Generated {len(states)} state pages, sitemap ({len(urls)} URLs), and index links block.")

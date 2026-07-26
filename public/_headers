@@ -1,0 +1,14 @@
+# Security + caching headers (Cloudflare Pages).
+# CSP intentionally DEFERRED: AdSense approval is pending and its loader chain
+# changes at approval time. Revisit when AdSense units go live. Same reasoning
+# as the sister sites.
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

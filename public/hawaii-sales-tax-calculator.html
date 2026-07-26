@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Hawaii Sales Tax Calculator 2026 - 4.5% Combined Rate</title>
-  <meta name="description" content="Free Hawaii sales tax calculator with July 2026 rates. The Hawaii state sales tax rate is 4%. Local rates average 0.5%, for a combined average of 4.5%. Add tax to a price or work backwards from a total." />
+  <meta name="description" content="Free sales tax calculator with July 2026 rates for all 50 states and DC. Add tax to a price or work backwards from a total." />
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://salestaxcalculatorhq.com/hawaii-sales-tax-calculator" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sales Tax Calculator HQ" />
   <meta property="og:title" content="Hawaii Sales Tax Calculator 2026 - 4.5% Combined Rate" />
   <meta property="og:description" content="Add sales tax to a price or work backwards from a total. 2026 state and average local rates built in." />
   <meta property="og:url" content="https://salestaxcalculatorhq.com/hawaii-sales-tax-calculator" />
@@ -18,9 +19,7 @@
   <meta property="og:image:alt" content="Sales Tax Calculator: 2026 rates for every state" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://salestaxcalculatorhq.com/og-image.jpg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="styles.css" />
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5812381332044887" crossorigin="anonymous"></script>
@@ -28,16 +27,37 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://salestaxcalculatorhq.com/#webapp",
+        "url": "https://salestaxcalculatorhq.com/",
+        "isPartOf": { "@id": "https://salestaxcalculatorhq.com/#website" },
     "name": "Sales Tax Calculator",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Any",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "description": "Free sales tax calculator with 2026 state and average local rates for all 50 states and DC, including a reverse mode that removes tax from a total."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://salestaxcalculatorhq.com/#website",
+        "url": "https://salestaxcalculatorhq.com/",
+        "name": "Sales Tax Calculator HQ",
+        "publisher": { "@id": "https://salestaxcalculatorhq.com/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://salestaxcalculatorhq.com/#organization",
+        "name": "Sales Tax Calculator HQ",
+        "url": "https://salestaxcalculatorhq.com/",
+        "logo": { "@type": "ImageObject", "url": "https://salestaxcalculatorhq.com/og-image.jpg" }
+      }
+    ]
   }
   </script>
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the sales tax in Hawaii?", "acceptedAnswer": {"@type": "Answer", "text": "The statewide rate is 4%. With local taxes included, the average combined rate is 4.5% as of July 1, 2026, though your exact rate depends on your city and county."}}, {"@type": "Question", "name": "How much is sales tax on a $100 purchase in Hawaii?", "acceptedAnswer": {"@type": "Answer", "text": "At the average combined rate of 4.5%, sales tax on a $100 purchase in Hawaii is $4.50, for a total of $104.50."}}, {"@type": "Question", "name": "Does Hawaii have local sales taxes?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Local sales taxes in Hawaii average 0.5% on top of the state rate, and the exact rate varies by city and county."}}]}
+  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the sales tax in Hawaii?", "acceptedAnswer": {"@type": "Answer", "text": "Hawaii does not levy a traditional sales tax. Its 4% general excise tax (GET) falls on businesses and is usually passed on to buyers; with average local surcharges of 0.5%, the effective combined rate is about 4.5% as of July 1, 2026."}}, {"@type": "Question", "name": "How much is sales tax on a $100 purchase in Hawaii?", "acceptedAnswer": {"@type": "Answer", "text": "At the average combined rate of 4.5%, sales tax on a $100 purchase in Hawaii is $4.50, for a total of $104.50."}}, {"@type": "Question", "name": "Does Hawaii have local sales taxes?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Local sales taxes in Hawaii average 0.5% on top of the state rate, and the exact rate varies by city and county."}}]}
   </script>
 </head>
 <body>
@@ -114,7 +134,7 @@
 
     <section class="doc" style="max-width:760px;padding:26px 28px">
       <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:10px">Sales tax in Hawaii (2026)</h2>
-      <p style="font-size:0.94rem">The Hawaii state sales tax rate is 4%. Local rates average 0.5%, for a combined average of 4.5%. Hawaii technically levies a general excise tax (GET) on businesses rather than a sales tax on buyers; in practice it is usually passed on and works out similarly at the register. Rates from the Tax Foundation's July 1, 2026 midyear table.</p>
+      <p style="font-size:0.94rem">Hawaii levies a 4% general excise tax (GET) on businesses rather than a true sales tax. It is usually passed through to buyers, so with average local surcharges of 0.5%, purchases effectively carry about 4.5% at the register. Rates from the <a href="https://taxfoundation.org/data/all/state/2026-sales-tax-rates-midyear/">Tax Foundation's July 1, 2026 midyear table</a>.</p>
       <div class="table-wrap">
       <table>
         <thead><tr><th>Purchase</th><th>Sales tax (avg 4.5%)</th><th>Total</th></tr></thead>
@@ -127,21 +147,22 @@
       </div>
       <div class="faq">
         <h3>What is the sales tax in Hawaii?</h3>
-        <p>The statewide rate is 4%. With local taxes included, the average combined rate is 4.5% as of July 1, 2026, though your exact rate depends on your city and county.</p>
+        <p>Hawaii does not levy a traditional sales tax. Its 4% general excise tax (GET) falls on businesses and is usually passed on to buyers; with average local surcharges of 0.5%, the effective combined rate is about 4.5% as of July 1, 2026.</p>
         <h3>How much is sales tax on a $100 purchase in Hawaii?</h3>
         <p>At the average combined rate of 4.5%, sales tax on a $100 purchase in Hawaii is $4.50, for a total of $104.50.</p>
         <h3>Does Hawaii have local sales taxes?</h3>
         <p>Yes. Local sales taxes in Hawaii average 0.5% on top of the state rate, and the exact rate varies by city and county.</p>
       </div>
-      <p style="font-size:0.9rem;margin-top:10px"><a href="/">All states</a> · <a href="guide">How US sales tax works</a></p>
+      <p style="font-size:0.9rem;margin-top:10px"><a href="/">All states</a> · <a href="sales-tax-by-state">Rates by state table</a> · <a href="guide">How US sales tax works</a></p>
     </section>
 
     <footer class="site-footer">
-      <span class="copy">© <span id="year">2026</span> Sales Tax Calculator</span>
-      <a href="guide">Guide</a>
-      <a href="faq">FAQ</a>
+      <span class="copy">© <span id="year">2026</span>
       <a href="about">About</a>
       <a href="privacy">Privacy</a>
+      <a href="guide">Guide</a>
+      <a href="faq">FAQ</a>
+      <a href="sales-tax-by-state">State rates</a>
     </footer>
   </div>
 
