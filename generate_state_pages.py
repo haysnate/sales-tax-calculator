@@ -143,7 +143,7 @@ for code, s in states.items():
     page = page.replace('content="https://salestaxcalculatorhq.com/" />', f'content="{DOMAIN}/{clean}" />')
     page = page.replace('<h1 id="pageH1">Sales Tax Calculator</h1>', f'<h1 id="pageH1">{name} Sales Tax Calculator</h1>')
     page = page.replace('<p class="subtitle">2026 rates for every state, plus local taxes.</p>', f'<p class="subtitle">2026 rates: state {sr}%, average local {lr}%.</p>' if not (s["none"] and s["local"]==0) else '<p class="subtitle">No sales tax. Lucky you.</p>')
-    page = page.replace('<script src="script.js"></script>', f'<script>window.PRESET_STATE = "{code}";</script>\n  <script src="script.js"></script>')
+    page = page.replace('<script src="script.js?v=2"></script>', f'<script>window.PRESET_STATE = "{code}";</script>\n  <script src="script.js?v=2"></script>')
 
     info = f'''    <section class="doc" style="max-width:760px;padding:26px 28px">
       <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:10px">Sales tax in {name} (2026)</h2>
@@ -173,6 +173,82 @@ for code, s in states.items():
     page = page.replace("  </script>\n</head>", f'  </script>\n  <script type="application/ld+json">\n  {faq_schema}\n  </script>\n</head>')
     write_if_changed(PUB / fname, page)
 
+# ---- /reverse-sales-tax-calculator (Phase 3, audit 2026-07-26) ----
+# The top cluster gap: a dedicated tool page for "reverse sales tax
+# calculator" queries, opening in Reverse mode via the PRESET_MODE hook.
+# Owns the deep reverse-math explainer, ending the guide/faq overlap.
+def reverse_page():
+    slug = "reverse-sales-tax-calculator"
+    title = "Reverse Sales Tax Calculator - Price Before Tax (2026)"
+    desc = ("Work backwards from a receipt total: divide by 1 plus the rate to get the "
+            "pre-tax price. Free reverse sales tax calculator with 2026 state rates.")
+
+    rev_rows = "\n".join(
+        f"          <tr><td>{r}%</td><td>{money(100 / (1 + r / 100))}</td><td>{money(100 - 100 / (1 + r / 100))}</td></tr>"
+        for r in (5, 6, 7, 8, 9, 10)
+    )
+
+    faqs = [
+        ("How do I calculate sales tax backwards from a total?",
+         "Divide the total by 1 plus the tax rate written as a decimal. For a $216.40 receipt at "
+         "8.2%, divide by 1.082: the pre-tax price is $200.00 and the tax is $16.40. The "
+         "calculator above does this for any total, state, and local rate."),
+        ("Why can't I just multiply the total by the tax rate?",
+         "Because tax was charged on the pre-tax price, not on the total. Multiplying $216.40 by "
+         "8.2% gives $17.74, which overstates the real $16.40 tax by $1.34. Dividing by 1.082 "
+         "recovers the true split."),
+        ("What is the reverse sales tax formula?",
+         "Pre-tax price = total divided by (1 + rate as a decimal), and tax = total minus pre-tax "
+         "price. At 7%, a $107.00 total is $100.00 plus $7.00 tax."),
+    ]
+    faq_schema = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": q,
+                        "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs],
+    }, ensure_ascii=False)
+
+    page = index_template
+    page = page.replace("<title>Sales Tax Calculator 2026 - All 50 States &amp; Local Rates</title>", f"<title>{title}</title>")
+    page = page.replace('content="Free sales tax calculator with July 2026 rates for all 50 states and DC. Add tax to a price or work backwards from a total."', f'content="{desc}"')
+    page = page.replace('href="https://salestaxcalculatorhq.com/" />', f'href="{DOMAIN}/{slug}" />')
+    page = page.replace('content="Sales Tax Calculator 2026 - All 50 States &amp; Local Rates" />', f'content="{title}" />')
+    page = page.replace('content="https://salestaxcalculatorhq.com/" />', f'content="{DOMAIN}/{slug}" />')
+    page = page.replace('<h1 id="pageH1">Sales Tax Calculator</h1>', '<h1 id="pageH1">Reverse Sales Tax Calculator</h1>')
+    page = page.replace('<p class="subtitle">2026 rates for every state, plus local taxes.</p>', '<p class="subtitle">Enter a total; get the pre-tax price and the tax.</p>')
+    page = page.replace('<script src="script.js?v=2"></script>', '<script>window.PRESET_MODE = "reverse";</script>\n  <script src="script.js?v=2"></script>')
+
+    info = f'''    <section class="doc" style="max-width:760px;padding:26px 28px">
+      <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:10px">How reverse sales tax works</h2>
+      <p style="font-size:0.94rem">A receipt total already includes tax, so you cannot get the tax
+      back by multiplying the total by the rate; the tax was charged on the smaller pre-tax price.
+      Divide instead: <strong>pre-tax price = total &divide; (1 + rate)</strong>. For a $216.40 total
+      at a combined 8.2% rate, $216.40 &divide; 1.082 = $200.00, so the tax was $16.40. Multiplying
+      the total would have claimed $17.74, overstating the tax by $1.34.</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Rate</th><th>Pre-tax price of a $100 total</th><th>Tax inside it</th></tr></thead>
+        <tbody>
+{rev_rows}
+        </tbody>
+      </table>
+      </div>
+      <p style="font-size:0.94rem">The calculator above is preset to reverse mode: pick your state
+      (and your city's exact local rate if you know it), enter the receipt total, and it splits the
+      pre-tax price from the tax for you. Bookkeepers use this to separate deductible tax from
+      expense amounts; shoppers use it to check a receipt.</p>
+      <div class="faq">
+        {"".join(f"<h3>{q}</h3><p>{a}</p>" for q, a in faqs)}
+      </div>
+      <p style="font-size:0.9rem;margin-top:10px"><a href="/">Forward calculator</a> · <a href="sales-tax-by-state">Rates by state table</a> · <a href="guide">How US sales tax works</a></p>
+    </section>
+'''
+    page = re.sub(r'    <section class="doc" style="max-width:760px;padding:26px 28px">\n      <h2[^>]*>Sales tax calculator by state</h2>.*?</section>\n', info, page, flags=re.S)
+    page = page.replace("  </script>\n</head>", f'  </script>\n  <script type="application/ld+json">\n  {faq_schema}\n  </script>\n</head>')
+    write_if_changed(PUB / (slug + ".html"), page)
+
+reverse_page()
+
 # ---- machine-readable rates file (CC BY 4.0, from the same STATES table) ----
 rates_data = {
     "about": "US state and local sales tax rates used by salestaxcalculatorhq.com. State rate, average local rate, and combined rate for all 50 states and DC.",
@@ -198,7 +274,7 @@ rates_data = {
 write_if_changed(PUB / "data" / "sales-tax-rates.json", json.dumps(rates_data, indent=1) + "\n")
 
 # ---- sitemap ----
-urls = [f"{DOMAIN}/", f"{DOMAIN}/guide", f"{DOMAIN}/sales-tax-by-state", f"{DOMAIN}/faq", f"{DOMAIN}/about", f"{DOMAIN}/privacy"]
+urls = [f"{DOMAIN}/", f"{DOMAIN}/guide", f"{DOMAIN}/sales-tax-by-state", f"{DOMAIN}/reverse-sales-tax-calculator", f"{DOMAIN}/faq", f"{DOMAIN}/about", f"{DOMAIN}/privacy"]
 urls += [f"{DOMAIN}/{s['slug']}-sales-tax-calculator" for s in sorted(states.values(), key=lambda x: x["name"])]
 # lastmod from real file mtimes (honest via write_if_changed above);
 # deprecated priority/changefreq dropped (audit 2026-07-26)

@@ -180,6 +180,7 @@ Object.keys(STATES).sort((a, b) => STATES[a].name.localeCompare(STATES[b].name))
 });
 el.state.value = (typeof window.PRESET_STATE === "string" && STATES[window.PRESET_STATE]) ? window.PRESET_STATE : "TX";
 el.localRate.value = String(STATES[el.state.value].local);
+if (window.PRESET_MODE === "reverse") setMode("reverse");
 
 // ---- state links (only on pages with the placeholder empty; static links are baked into index) ----
 

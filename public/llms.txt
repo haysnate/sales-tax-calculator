@@ -11,6 +11,7 @@ Key facts:
 
 - [Sales Tax Calculator](https://salestaxcalculatorhq.com/): The add-tax and reverse-tax tool for every state.
 - [US Sales Tax Explained](https://salestaxcalculatorhq.com/guide): State vs local rates, highest and lowest states, the five no-tax states, and reverse tax math, for 2026.
+- [Reverse Sales Tax Calculator](https://salestaxcalculatorhq.com/reverse-sales-tax-calculator): Work backwards from a receipt total to the pre-tax price and the tax inside it.
 - [Sales Tax Rates by State](https://salestaxcalculatorhq.com/sales-tax-by-state): Full July 2026 table of state and average local rates for all 50 states and DC, with the no-tax states and the highest and lowest combined rates.
 - [Sales Tax FAQ](https://salestaxcalculatorhq.com/faq): Common questions answered, including no-tax states, reverse tax math, local rates, online orders, and the highest and lowest states.
 - [About](https://salestaxcalculatorhq.com/about): What the tool does and the privacy approach.
