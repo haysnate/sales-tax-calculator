@@ -22,11 +22,33 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "name": "About - Sales Tax Calculator",
-    "url": "https://salestaxcalculatorhq.com/about",
-    "description": "About Sales Tax Calculator: a fast, private, in-browser tool with July 2026 state and average local sales tax rates for all 50 states and DC.",
-    "publisher": { "@type": "Organization", "name": "Sales Tax Calculator HQ", "url": "https://salestaxcalculatorhq.com/" }
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "name": "About - Sales Tax Calculator",
+        "url": "https://salestaxcalculatorhq.com/about",
+        "description": "About Sales Tax Calculator: a fast, private, in-browser tool with July 2026 state and average local sales tax rates for all 50 states and DC.",
+        "publisher": { "@type": "Organization", "name": "Sales Tax Calculator HQ", "url": "https://salestaxcalculatorhq.com/" },
+        "mainEntity": { "@id": "https://salestaxcalculatorhq.com/#nathan" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://salestaxcalculatorhq.com/#nathan",
+        "name": "Nathan Hays",
+        "url": "https://salestaxcalculatorhq.com/about",
+        "description": "Builder and maintainer of Sales Tax Calculator HQ, part of a family of free, single-purpose web tools. Independent: sells nothing and takes no side in any transaction."
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://salestaxcalculatorhq.com/#organization",
+        "name": "Sales Tax Calculator HQ",
+        "url": "https://salestaxcalculatorhq.com/",
+        "logo": { "@type": "ImageObject", "url": "https://salestaxcalculatorhq.com/og-image.jpg" },
+        "founder": { "@id": "https://salestaxcalculatorhq.com/#nathan" },
+        "email": "support@salestaxcalculatorhq.com",
+        "contactPoint": { "@type": "ContactPoint", "email": "support@salestaxcalculatorhq.com", "contactType": "customer support" }
+      }
+    ]
   }
   </script>
 </head>
@@ -47,6 +69,9 @@
     <p>Rates come from the Tax Foundation's July 1, 2026 midyear table: the statutory state rate plus the population-weighted average local rate for each state and DC. Special cases are handled, including the five states with no statewide sales tax, Alaska's local-only taxes, and the mandatory statewide local rates baked into California, Utah, and Virginia figures. Each state also has its own page, like the <a href="texas-sales-tax-calculator">Texas sales tax calculator</a>, with rates preloaded.</p>
     <h2>Private and free</h2>
     <p>Every calculation runs locally in your browser. Nothing you enter is uploaded, stored, or sent anywhere. No sign-up, nothing to install. For details on the cookies used by advertising, see our <a href="privacy">Privacy Policy</a>.</p>
+    <h2>Who runs this site</h2>
+    <p>Sales Tax Calculator HQ is built and maintained by Nathan Hays, who makes a family of free, single-purpose web tools. He has no affiliation with any tax software company, retailer, or government agency, and the site sells nothing; its only job is to compute honest numbers from published rate data and show its source. Questions and corrections are welcome at <a href="mailto:support@salestaxcalculatorhq.com">support@salestaxcalculatorhq.com</a>.</p>
+
     <h2>Important disclaimer</h2>
     <p><strong>This calculator is for general informational and educational purposes only. It does not provide, and must not be relied on as, tax advice, legal advice, or financial advice.</strong></p>
     <ul>

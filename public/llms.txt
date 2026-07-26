@@ -68,3 +68,6 @@ Key facts:
 - [West Virginia](https://salestaxcalculatorhq.com/west-virginia-sales-tax-calculator)
 - [Wisconsin](https://salestaxcalculatorhq.com/wisconsin-sales-tax-calculator)
 - [Wyoming](https://salestaxcalculatorhq.com/wyoming-sales-tax-calculator)
+## Machine-readable data
+
+- [sales-tax-rates.json](https://salestaxcalculatorhq.com/data/sales-tax-rates.json): State rate, average local rate, and combined rate for all 50 states and DC as of July 1, 2026, plus flags for the no-tax states, Hawaii's GET, and mandatory statewide local components. Licensed CC BY 4.0: reuse freely with attribution to Sales Tax Calculator HQ.

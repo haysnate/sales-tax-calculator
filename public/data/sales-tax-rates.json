@@ -1,0 +1,325 @@
+{
+ "about": "US state and local sales tax rates used by salestaxcalculatorhq.com. State rate, average local rate, and combined rate for all 50 states and DC.",
+ "asOf": "2026-07-01",
+ "source": "Tax Foundation, State and Local Sales Tax Rates, Midyear 2026",
+ "sourceUrl": "https://taxfoundation.org/data/all/state/2026-sales-tax-rates-midyear/",
+ "license": "https://creativecommons.org/licenses/by/4.0/",
+ "attribution": "Sales Tax Calculator HQ",
+ "states": {
+  "AK": {
+   "name": "Alaska",
+   "stateRate": 0.0,
+   "avgLocalRate": 1.82,
+   "combinedAvgRate": 1.82,
+   "noSalesTax": true
+  },
+  "AL": {
+   "name": "Alabama",
+   "stateRate": 4.0,
+   "avgLocalRate": 5.46,
+   "combinedAvgRate": 9.46
+  },
+  "AR": {
+   "name": "Arkansas",
+   "stateRate": 6.5,
+   "avgLocalRate": 2.98,
+   "combinedAvgRate": 9.48
+  },
+  "AZ": {
+   "name": "Arizona",
+   "stateRate": 5.6,
+   "avgLocalRate": 2.94,
+   "combinedAvgRate": 8.54
+  },
+  "CA": {
+   "name": "California",
+   "stateRate": 7.25,
+   "avgLocalRate": 1.78,
+   "combinedAvgRate": 9.03,
+   "stateRateIncludesMandatoryLocal": 1.25
+  },
+  "CO": {
+   "name": "Colorado",
+   "stateRate": 2.9,
+   "avgLocalRate": 4.99,
+   "combinedAvgRate": 7.89
+  },
+  "CT": {
+   "name": "Connecticut",
+   "stateRate": 6.35,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 6.35
+  },
+  "DC": {
+   "name": "District of Columbia",
+   "stateRate": 6.0,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 6.0
+  },
+  "DE": {
+   "name": "Delaware",
+   "stateRate": 0.0,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 0.0,
+   "noSalesTax": true
+  },
+  "FL": {
+   "name": "Florida",
+   "stateRate": 6.0,
+   "avgLocalRate": 0.98,
+   "combinedAvgRate": 6.98
+  },
+  "GA": {
+   "name": "Georgia",
+   "stateRate": 4.0,
+   "avgLocalRate": 3.56,
+   "combinedAvgRate": 7.56
+  },
+  "HI": {
+   "name": "Hawaii",
+   "stateRate": 4.0,
+   "avgLocalRate": 0.5,
+   "combinedAvgRate": 4.5,
+   "generalExciseTax": true
+  },
+  "IA": {
+   "name": "Iowa",
+   "stateRate": 6.0,
+   "avgLocalRate": 0.94,
+   "combinedAvgRate": 6.94
+  },
+  "ID": {
+   "name": "Idaho",
+   "stateRate": 6.0,
+   "avgLocalRate": 0.03,
+   "combinedAvgRate": 6.03
+  },
+  "IL": {
+   "name": "Illinois",
+   "stateRate": 6.25,
+   "avgLocalRate": 2.73,
+   "combinedAvgRate": 8.98
+  },
+  "IN": {
+   "name": "Indiana",
+   "stateRate": 7.0,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 7.0
+  },
+  "KS": {
+   "name": "Kansas",
+   "stateRate": 6.5,
+   "avgLocalRate": 2.21,
+   "combinedAvgRate": 8.71
+  },
+  "KY": {
+   "name": "Kentucky",
+   "stateRate": 6.0,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 6.0
+  },
+  "LA": {
+   "name": "Louisiana",
+   "stateRate": 5.0,
+   "avgLocalRate": 5.13,
+   "combinedAvgRate": 10.13
+  },
+  "MA": {
+   "name": "Massachusetts",
+   "stateRate": 6.25,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 6.25
+  },
+  "MD": {
+   "name": "Maryland",
+   "stateRate": 6.0,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 6.0
+  },
+  "ME": {
+   "name": "Maine",
+   "stateRate": 5.5,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 5.5
+  },
+  "MI": {
+   "name": "Michigan",
+   "stateRate": 6.0,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 6.0
+  },
+  "MN": {
+   "name": "Minnesota",
+   "stateRate": 6.875,
+   "avgLocalRate": 1.26,
+   "combinedAvgRate": 8.135
+  },
+  "MO": {
+   "name": "Missouri",
+   "stateRate": 4.225,
+   "avgLocalRate": 4.22,
+   "combinedAvgRate": 8.445
+  },
+  "MS": {
+   "name": "Mississippi",
+   "stateRate": 7.0,
+   "avgLocalRate": 0.06,
+   "combinedAvgRate": 7.06
+  },
+  "MT": {
+   "name": "Montana",
+   "stateRate": 0.0,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 0.0,
+   "noSalesTax": true
+  },
+  "NC": {
+   "name": "North Carolina",
+   "stateRate": 4.75,
+   "avgLocalRate": 2.35,
+   "combinedAvgRate": 7.1
+  },
+  "ND": {
+   "name": "North Dakota",
+   "stateRate": 5.0,
+   "avgLocalRate": 2.09,
+   "combinedAvgRate": 7.09
+  },
+  "NE": {
+   "name": "Nebraska",
+   "stateRate": 5.5,
+   "avgLocalRate": 1.48,
+   "combinedAvgRate": 6.98
+  },
+  "NH": {
+   "name": "New Hampshire",
+   "stateRate": 0.0,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 0.0,
+   "noSalesTax": true
+  },
+  "NJ": {
+   "name": "New Jersey",
+   "stateRate": 6.625,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 6.625
+  },
+  "NM": {
+   "name": "New Mexico",
+   "stateRate": 4.875,
+   "avgLocalRate": 2.8,
+   "combinedAvgRate": 7.675
+  },
+  "NV": {
+   "name": "Nevada",
+   "stateRate": 6.85,
+   "avgLocalRate": 1.39,
+   "combinedAvgRate": 8.24
+  },
+  "NY": {
+   "name": "New York",
+   "stateRate": 4.0,
+   "avgLocalRate": 4.54,
+   "combinedAvgRate": 8.54
+  },
+  "OH": {
+   "name": "Ohio",
+   "stateRate": 5.75,
+   "avgLocalRate": 1.54,
+   "combinedAvgRate": 7.29
+  },
+  "OK": {
+   "name": "Oklahoma",
+   "stateRate": 4.5,
+   "avgLocalRate": 4.56,
+   "combinedAvgRate": 9.06
+  },
+  "OR": {
+   "name": "Oregon",
+   "stateRate": 0.0,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 0.0,
+   "noSalesTax": true
+  },
+  "PA": {
+   "name": "Pennsylvania",
+   "stateRate": 6.0,
+   "avgLocalRate": 0.34,
+   "combinedAvgRate": 6.34
+  },
+  "RI": {
+   "name": "Rhode Island",
+   "stateRate": 7.0,
+   "avgLocalRate": 0.0,
+   "combinedAvgRate": 7.0
+  },
+  "SC": {
+   "name": "South Carolina",
+   "stateRate": 6.0,
+   "avgLocalRate": 1.49,
+   "combinedAvgRate": 7.49
+  },
+  "SD": {
+   "name": "South Dakota",
+   "stateRate": 4.2,
+   "avgLocalRate": 1.91,
+   "combinedAvgRate": 6.11
+  },
+  "TN": {
+   "name": "Tennessee",
+   "stateRate": 7.0,
+   "avgLocalRate": 2.61,
+   "combinedAvgRate": 9.61
+  },
+  "TX": {
+   "name": "Texas",
+   "stateRate": 6.25,
+   "avgLocalRate": 1.95,
+   "combinedAvgRate": 8.2
+  },
+  "UT": {
+   "name": "Utah",
+   "stateRate": 6.1,
+   "avgLocalRate": 1.32,
+   "combinedAvgRate": 7.42,
+   "stateRateIncludesMandatoryLocal": 1.25
+  },
+  "VA": {
+   "name": "Virginia",
+   "stateRate": 5.3,
+   "avgLocalRate": 0.47,
+   "combinedAvgRate": 5.77,
+   "stateRateIncludesMandatoryLocal": 1.0
+  },
+  "VT": {
+   "name": "Vermont",
+   "stateRate": 6.0,
+   "avgLocalRate": 0.43,
+   "combinedAvgRate": 6.43
+  },
+  "WA": {
+   "name": "Washington",
+   "stateRate": 6.5,
+   "avgLocalRate": 3.07,
+   "combinedAvgRate": 9.57
+  },
+  "WI": {
+   "name": "Wisconsin",
+   "stateRate": 5.0,
+   "avgLocalRate": 0.72,
+   "combinedAvgRate": 5.72
+  },
+  "WV": {
+   "name": "West Virginia",
+   "stateRate": 6.0,
+   "avgLocalRate": 0.6,
+   "combinedAvgRate": 6.6
+  },
+  "WY": {
+   "name": "Wyoming",
+   "stateRate": 4.0,
+   "avgLocalRate": 1.39,
+   "combinedAvgRate": 5.39
+  }
+ }
+}

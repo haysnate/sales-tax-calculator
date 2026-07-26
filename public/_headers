@@ -12,3 +12,7 @@
 
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
+
+# rate data changes at most twice a year; daily TTL keeps it fresh
+/data/sales-tax-rates.json
+  Cache-Control: public, max-age=86400

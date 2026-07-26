@@ -46,12 +46,22 @@
         "name": "Sales Tax Calculator HQ",
         "publisher": { "@id": "https://salestaxcalculatorhq.com/#organization" }
       },
-      {
+{
         "@type": "Organization",
         "@id": "https://salestaxcalculatorhq.com/#organization",
         "name": "Sales Tax Calculator HQ",
         "url": "https://salestaxcalculatorhq.com/",
-        "logo": { "@type": "ImageObject", "url": "https://salestaxcalculatorhq.com/og-image.jpg" }
+        "logo": { "@type": "ImageObject", "url": "https://salestaxcalculatorhq.com/og-image.jpg" },
+        "founder": { "@id": "https://salestaxcalculatorhq.com/#nathan" },
+        "email": "support@salestaxcalculatorhq.com",
+        "contactPoint": { "@type": "ContactPoint", "email": "support@salestaxcalculatorhq.com", "contactType": "customer support" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://salestaxcalculatorhq.com/#nathan",
+        "name": "Nathan Hays",
+        "url": "https://salestaxcalculatorhq.com/about",
+        "description": "Builder and maintainer of Sales Tax Calculator HQ, part of a family of free, single-purpose web tools. Independent: sells nothing and takes no side in any transaction."
       }
     ]
   }
@@ -98,7 +108,7 @@
           <div class="field">
             <label for="localRate">Local rate <span style="font-weight:500">(county + city)</span></label>
             <div class="input-wrap"><input id="localRate" inputmode="decimal" type="text" value="0" autocomplete="off"><span class="affix affix--suffix">%</span></div>
-            <p class="hint" id="localHint">Auto-filled with your state's average local rate. If you know your city's exact rate, enter it here.</p>
+            <p class="hint" id="localHint">Auto-filled with your state's average local rate; enter your city's exact rate for a precise total. Everything runs in your browser and nothing you type is uploaded.</p>
           </div>
         </div>
 
@@ -154,6 +164,7 @@
         <p>No. New Jersey has a single statewide rate of 6.625% with no additional local sales taxes.</p>
       </div>
       <p style="font-size:0.9rem;margin-top:10px"><a href="/">All states</a> · <a href="sales-tax-by-state">Rates by state table</a> · <a href="guide">How US sales tax works</a></p>
+      <p style="font-size:0.9rem">More states: <a href="new-hampshire-sales-tax-calculator">New Hampshire sales tax</a> · <a href="new-mexico-sales-tax-calculator">New Mexico sales tax</a></p>
     </section>
 
     <footer class="site-footer">

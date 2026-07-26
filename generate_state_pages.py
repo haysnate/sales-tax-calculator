@@ -51,8 +51,15 @@ index_out = re.sub(r'<p id="stateLinks"[^>]*>.*?</p>',
 write_if_changed(PUB / "index.html", index_out)
 
 # ---- per-state pages ----
+ordered = sorted(states.values(), key=lambda x: x["name"])
 for code, s in states.items():
     name, slug = s["name"], s["slug"]
+    # alphabetical neighbors keep the 51-page mesh connected (audit 2026-07-26:
+    # zero state-to-state links existed)
+    i = next(j for j, o in enumerate(ordered) if o["slug"] == slug)
+    sibs = [ordered[(i - 1) % len(ordered)], ordered[(i + 1) % len(ordered)]]
+    sibling_links = " · ".join(
+        f'<a href="{o["slug"]}-sales-tax-calculator">{o["name"]} sales tax</a>' for o in sibs)
     combined = s["state"] + s["local"]
     cr, sr, lr = fmt_rate(combined), fmt_rate(s["state"]), fmt_rate(s["local"])
     fname = f"{slug}-sales-tax-calculator.html"
@@ -158,12 +165,37 @@ for code, s in states.items():
         <p>{faq3}</p>
       </div>
       <p style="font-size:0.9rem;margin-top:10px"><a href="/">All states</a> · <a href="sales-tax-by-state">Rates by state table</a> · <a href="guide">How US sales tax works</a></p>
+      <p style="font-size:0.9rem">More states: {sibling_links}</p>
     </section>
 '''
     # swap the state-links section for the state info section, and add FAQ schema
     page = re.sub(r'    <section class="doc" style="max-width:760px;padding:26px 28px">\n      <h2[^>]*>Sales tax calculator by state</h2>.*?</section>\n', info, page, flags=re.S)
     page = page.replace("  </script>\n</head>", f'  </script>\n  <script type="application/ld+json">\n  {faq_schema}\n  </script>\n</head>')
     write_if_changed(PUB / fname, page)
+
+# ---- machine-readable rates file (CC BY 4.0, from the same STATES table) ----
+rates_data = {
+    "about": "US state and local sales tax rates used by salestaxcalculatorhq.com. State rate, average local rate, and combined rate for all 50 states and DC.",
+    "asOf": "2026-07-01",
+    "source": "Tax Foundation, State and Local Sales Tax Rates, Midyear 2026",
+    "sourceUrl": TF_URL,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "attribution": "Sales Tax Calculator HQ",
+    "states": {
+        code: {
+            "name": s["name"],
+            "stateRate": s["state"],
+            "avgLocalRate": s["local"],
+            "combinedAvgRate": round(s["state"] + s["local"], 3),
+            **({"noSalesTax": True} if s["none"] else {}),
+            **({"generalExciseTax": True} if s["get"] else {}),
+            **({"stateRateIncludesMandatoryLocal": s["mandatoryLocal"]} if s["mandatoryLocal"] else {}),
+        }
+        for code, s in sorted(states.items())
+    },
+}
+(PUB / "data").mkdir(exist_ok=True)
+write_if_changed(PUB / "data" / "sales-tax-rates.json", json.dumps(rates_data, indent=1) + "\n")
 
 # ---- sitemap ----
 urls = [f"{DOMAIN}/", f"{DOMAIN}/guide", f"{DOMAIN}/sales-tax-by-state", f"{DOMAIN}/faq", f"{DOMAIN}/about", f"{DOMAIN}/privacy"]

@@ -159,3 +159,23 @@ select.input-el:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(-
   .site-footer { justify-content: center; flex-wrap: wrap; gap: 12px; }
   .site-footer .copy { margin-right: 0; width: 100%; text-align: center; }
 }
+
+/* bylines on the doc pages (sister-site pattern) */
+.byline { color: var(--text-muted); font-size: 0.85rem; font-weight: 600; margin: -6px 0 14px; }
+.byline a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--border); }
+.byline a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* scrolling-shadow cue for wide tables: shadows appear only when content
+   actually overflows, so narrow tables are unaffected (audit 2026-07-26:
+   the by-state table's key column hid off-screen at 375px with no hint) */
+.table-wrap--scrollhint {
+  background:
+    linear-gradient(to right, var(--card-bg) 30%, rgba(255,255,255,0)) 0 0,
+    linear-gradient(to left, var(--card-bg) 30%, rgba(255,255,255,0)) 100% 0,
+    linear-gradient(to right, rgba(15,23,42,.16), rgba(15,23,42,0)) 0 0,
+    linear-gradient(to left, rgba(15,23,42,.16), rgba(15,23,42,0)) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 44px 100%, 44px 100%, 14px 100%, 14px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+.table-wrap--scrollhint table { background: transparent; }
