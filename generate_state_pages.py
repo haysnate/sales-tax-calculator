@@ -81,7 +81,7 @@ for code, s in states.items():
         rate_sentence = f"{name} levies a {sr}% general excise tax (GET) on businesses rather than a true sales tax. It is usually passed through to buyers: the combined GET-plus-surcharge burden averages {cr}%, and because the GET applies to the passed-on tax as well, sellers may lawfully pass on up to 4.712%, so a $100 purchase can ring up as much as $104.71 at the register."
         faq1 = f"{name} does not levy a traditional sales tax. Its {sr}% general excise tax (GET) falls on businesses and is usually passed on to buyers; with average local surcharges of {lr}%, the combined burden is about {cr}% as of July 1, 2026, and the maximum lawful pass-on rate is 4.712%."
     elif s["uez"]:
-        tfc = fmt_rate(s["tfCombined"])
+        tfc = f"{s['tfCombined']:.2f}"  # cite the source figure verbatim (6.60, not 6.6)
         rate_sentence = f"The {name} state sales tax rate is {sr}%. There are no general local sales taxes, though urban enterprise zones charge half the state rate on qualifying purchases, which pulls the published average combined rate to {tfc}%."
         faq1 = f"The statewide rate is {sr}% with no general local sales taxes. Qualifying sellers in urban enterprise zones charge half the state rate, so the population-weighted average combined rate is {tfc}% as of July 1, 2026."
     else:
