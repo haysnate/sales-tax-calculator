@@ -11,7 +11,7 @@
    "stateRate": 0.0,
    "avgLocalRate": 1.82,
    "combinedAvgRate": 1.82,
-   "noSalesTax": true
+   "noStatewideSalesTax": true
   },
   "AL": {
    "name": "Alabama",
@@ -61,7 +61,8 @@
    "stateRate": 0.0,
    "avgLocalRate": 0.0,
    "combinedAvgRate": 0.0,
-   "noSalesTax": true
+   "noSalesTax": true,
+   "noStatewideSalesTax": true
   },
   "FL": {
    "name": "Florida",
@@ -171,7 +172,8 @@
    "stateRate": 0.0,
    "avgLocalRate": 0.0,
    "combinedAvgRate": 0.0,
-   "noSalesTax": true
+   "noSalesTax": true,
+   "noStatewideSalesTax": true
   },
   "NC": {
    "name": "North Carolina",
@@ -196,13 +198,15 @@
    "stateRate": 0.0,
    "avgLocalRate": 0.0,
    "combinedAvgRate": 0.0,
-   "noSalesTax": true
+   "noSalesTax": true,
+   "noStatewideSalesTax": true
   },
   "NJ": {
    "name": "New Jersey",
    "stateRate": 6.625,
    "avgLocalRate": 0.0,
-   "combinedAvgRate": 6.625
+   "combinedAvgRate": 6.6,
+   "avgBelowStateRateNote": "Urban enterprise zones charge half the state rate on qualifying purchases, pulling the population-weighted average combined rate below the state rate."
   },
   "NM": {
    "name": "New Mexico",
@@ -239,7 +243,8 @@
    "stateRate": 0.0,
    "avgLocalRate": 0.0,
    "combinedAvgRate": 0.0,
-   "noSalesTax": true
+   "noSalesTax": true,
+   "noStatewideSalesTax": true
   },
   "PA": {
    "name": "Pennsylvania",

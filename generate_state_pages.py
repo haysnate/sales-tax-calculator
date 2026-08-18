@@ -16,6 +16,7 @@ for m in re.finditer(r'(\w+): \{ name: "([^"]+)", slug: "([^"]+)", state: ([\d.]
         "name": name, "slug": slug, "state": float(state), "local": float(local),
         "none": "none: true" in flags, "get": "get: true" in flags, "uez": "uez: true" in flags,
         "mandatoryLocal": (lambda f: float(f.group(1)) if f else None)(re.search(r"mandatoryLocal: ([\d.]+)", flags)),
+        "tfCombined": (lambda f: float(f.group(1)) if f else None)(re.search(r"tfCombined: ([\d.]+)", flags)),
     }
 assert len(states) == 51, f"expected 51 states, parsed {len(states)}"
 
@@ -77,8 +78,12 @@ for code, s in states.items():
     elif s["get"]:
         # Hawaii. Lead with the GET truth instead of calling it a "sales tax
         # rate" and correcting one sentence later (audit 2026-07-26).
-        rate_sentence = f"{name} levies a {sr}% general excise tax (GET) on businesses rather than a true sales tax. It is usually passed through to buyers, so with average local surcharges of {lr}%, purchases effectively carry about {cr}% at the register."
-        faq1 = f"{name} does not levy a traditional sales tax. Its {sr}% general excise tax (GET) falls on businesses and is usually passed on to buyers; with average local surcharges of {lr}%, the effective combined rate is about {cr}% as of July 1, 2026."
+        rate_sentence = f"{name} levies a {sr}% general excise tax (GET) on businesses rather than a true sales tax. It is usually passed through to buyers: the combined GET-plus-surcharge burden averages {cr}%, and because the GET applies to the passed-on tax as well, sellers may lawfully pass on up to 4.712%, so a $100 purchase can ring up as much as $104.71 at the register."
+        faq1 = f"{name} does not levy a traditional sales tax. Its {sr}% general excise tax (GET) falls on businesses and is usually passed on to buyers; with average local surcharges of {lr}%, the combined burden is about {cr}% as of July 1, 2026, and the maximum lawful pass-on rate is 4.712%."
+    elif s["uez"]:
+        tfc = fmt_rate(s["tfCombined"])
+        rate_sentence = f"The {name} state sales tax rate is {sr}%. There are no general local sales taxes, though urban enterprise zones charge half the state rate on qualifying purchases, which pulls the published average combined rate to {tfc}%."
+        faq1 = f"The statewide rate is {sr}% with no general local sales taxes. Qualifying sellers in urban enterprise zones charge half the state rate, so the population-weighted average combined rate is {tfc}% as of July 1, 2026."
     else:
         rate_sentence = f"The {name} state sales tax rate is {sr}%. Local rates average {lr}%, for a combined average of {cr}%."
         faq1 = f"The statewide rate is {sr}%. With local taxes included, the average combined rate is {cr}% as of July 1, 2026, though your exact rate depends on your city and county."
@@ -97,6 +102,8 @@ for code, s in states.items():
     )
 
     faq2 = f"At the average combined rate of {cr}%, sales tax on a $100 purchase in {name} is {money(100*combined/100)}, for a total of {money(100*(1+combined/100))}."
+    if s["get"]:
+        faq2 = f"The combined GET-plus-surcharge burden of {cr}% on a $100 purchase is {money(100*combined/100)}, a total of {money(100*(1+combined/100))}; sellers passing on the tax at the lawful maximum of 4.712% would charge $104.71."
     if s["none"] and s["local"] == 0:
         faq2 = f"Nothing. {name} has no sales tax, so a $100 purchase costs exactly $100.00 at the register."
     faq3_yes = f"Yes. Local sales taxes in {name} average {lr}% on top of the state rate, and the exact rate varies by city and county."
@@ -262,8 +269,13 @@ rates_data = {
             "name": s["name"],
             "stateRate": s["state"],
             "avgLocalRate": s["local"],
-            "combinedAvgRate": round(s["state"] + s["local"], 3),
-            **({"noSalesTax": True} if s["none"] else {}),
+            "combinedAvgRate": (s["tfCombined"] if s["tfCombined"]
+                                else round(s["state"] + s["local"], 3)),
+            **({"noSalesTax": True} if s["none"] and s["local"] == 0 else {}),
+            **({"noStatewideSalesTax": True} if s["none"] else {}),
+            **({"avgBelowStateRateNote":
+                "Urban enterprise zones charge half the state rate on qualifying purchases, pulling the population-weighted average combined rate below the state rate."}
+               if s["tfCombined"] else {}),
             **({"generalExciseTax": True} if s["get"] else {}),
             **({"stateRateIncludesMandatoryLocal": s["mandatoryLocal"]} if s["mandatoryLocal"] else {}),
         }

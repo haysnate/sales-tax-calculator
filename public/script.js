@@ -8,7 +8,10 @@
 
 // state: statutory state rate (%). local: population-weighted average
 // local rate (%). none: no statewide sales tax. mandatoryLocal: the state
-// rate shown includes a mandatory statewide local add-on.
+// rate shown includes a mandatory statewide local add-on. tfCombined: the
+// source table's published combined average where it differs from state+local
+// (NJ: urban enterprise zones pull the average below the state rate; nobody
+// actually pays a negative local rate, so the calculator default stays 0).
 const STATES = {
   AL: { name: "Alabama", slug: "alabama", state: 4.00, local: 5.46 },
   AK: { name: "Alaska", slug: "alaska", state: 0, local: 1.82, none: true },
@@ -40,7 +43,7 @@ const STATES = {
   NE: { name: "Nebraska", slug: "nebraska", state: 5.50, local: 1.48 },
   NV: { name: "Nevada", slug: "nevada", state: 6.85, local: 1.39 },
   NH: { name: "New Hampshire", slug: "new-hampshire", state: 0, local: 0, none: true },
-  NJ: { name: "New Jersey", slug: "new-jersey", state: 6.625, local: 0, uez: true },
+  NJ: { name: "New Jersey", slug: "new-jersey", state: 6.625, local: 0, uez: true, tfCombined: 6.60 },
   NM: { name: "New Mexico", slug: "new-mexico", state: 4.875, local: 2.80 },
   NY: { name: "New York", slug: "new-york", state: 4.00, local: 4.54 },
   NC: { name: "North Carolina", slug: "north-carolina", state: 4.75, local: 2.35 },
@@ -118,24 +121,33 @@ function calc() {
   }
   const stateTax = base * stateRate;
   const localTax = base * localRate;
-  const tax = stateTax + localTax;
+
+  // one cent-rounding policy: round the total tax once, then allocate its
+  // cents between the state and local components so every displayed number
+  // sums exactly (state + local = tax; base + tax = total)
+  const r2 = (n) => Math.round(n * 100) / 100;
+  const baseR = r2(base);
+  const taxR = mode === "add" ? r2(stateTax + localTax) : r2(total) - baseR;
+  const totalR = mode === "add" ? r2(baseR + taxR) : r2(total);
+  const stateR = Math.min(r2(stateTax), taxR);
+  const localR = r2(taxR - stateR);
 
   // ---- render ----
   el.resultLabel.textContent = mode === "add" ? "Total price with tax" : "Price before tax";
-  el.resultValue.textContent = money(mode === "add" ? total : base);
-  el.legPrice.textContent = money(base);
-  el.legState.textContent = money(stateTax);
-  el.legLocal.textContent = money(localTax);
+  el.resultValue.textContent = money(mode === "add" ? totalR : baseR);
+  el.legPrice.textContent = money(baseR);
+  el.legState.textContent = money(stateR);
+  el.legLocal.textContent = money(localR);
   el.legLocalRow.hidden = localRate <= 0;
-  el.rBase.textContent = money(base);
-  el.rState.textContent = money(stateTax);
+  el.rBase.textContent = money(baseR);
+  el.rState.textContent = money(stateR);
   el.rStateRate.textContent = pct(s.state);
-  el.rLocal.textContent = money(localTax);
+  el.rLocal.textContent = money(localR);
   el.rLocalRate.textContent = pct(Math.round(localRate * 100000) / 1000);
   el.rLocalRow.hidden = localRate <= 0;
-  el.rTax.textContent = money(tax);
+  el.rTax.textContent = money(taxR);
   el.rCombined.textContent = pct(Math.round(combined * 100000) / 1000);
-  el.rTotal.textContent = money(total);
+  el.rTotal.textContent = money(totalR);
 
   const segs = [
     { color: COLORS.price, v: base },
@@ -156,8 +168,8 @@ function calc() {
   if (s.none && s.local > 0) note += s.name + " has no statewide sales tax, but local governments levy their own. ";
   else if (s.none) note += s.name + " has no state or local sales tax. ";
   if (s.mandatoryLocal) note += "The " + s.name + " state rate shown includes a mandatory statewide local rate of " + s.mandatoryLocal + "%. ";
-  if (s.get) note += "Hawaii technically levies a general excise tax on businesses rather than a sales tax; it works out similarly at the register. ";
-  if (s.uez) note += "Some New Jersey urban enterprise zones charge half the state rate. ";
+  if (s.get) note += "Hawaii levies a general excise tax on businesses rather than a sales tax; sellers may lawfully pass on up to 4.712% because the GET applies to the passed-on amount as well. ";
+  if (s.uez) note += "Some New Jersey urban enterprise zones charge half the state rate on qualifying purchases, which pulls the published average combined rate to " + s.tfCombined + "%. ";
   note += "Groceries, clothing, and medicine are taxed differently in many states. Estimates only. Not tax or financial advice.";
   el.taxNote.textContent = note;
 }
