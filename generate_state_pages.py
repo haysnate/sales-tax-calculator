@@ -98,8 +98,7 @@ for code, s in states.items():
     if s["mandatoryLocal"]:
         notes.append(f"The {sr}% state rate shown includes a mandatory statewide local rate of {fmt_rate(s['mandatoryLocal'])}%.")
     # (Hawaii's GET note now lives in rate_sentence itself, not a trailing note)
-    if s["uez"]:
-        notes.append("Some New Jersey urban enterprise zones charge half the state rate on qualifying purchases.")
+    # (New Jersey's UEZ caveat now lives in its rate_sentence branch)
     notes_html = (' ' + " ".join(notes)) if notes else ""
 
     rows = "\n".join(
