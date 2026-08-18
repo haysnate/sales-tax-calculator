@@ -125,7 +125,9 @@ function calc() {
   // one cent-rounding policy: round the total tax once, then allocate its
   // cents between the state and local components so every displayed number
   // sums exactly (state + local = tax; base + tax = total)
-  const r2 = (n) => Math.round(n * 100) / 100;
+  // toFixed(6) snaps binary float noise (16.08 x 6.25% = 1.00499999...)
+  // before the half-up cent rounding; genuine values have at most 5 decimals
+  const r2 = (n) => Math.round(Number((n * 100).toFixed(6))) / 100;
   const baseR = r2(base);
   const taxR = mode === "add" ? r2(stateTax + localTax) : r2(total) - baseR;
   const totalR = mode === "add" ? r2(baseR + taxR) : r2(total);

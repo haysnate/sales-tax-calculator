@@ -24,8 +24,14 @@ def fmt_rate(r):
     s = f"{r:.3f}".rstrip("0").rstrip(".")
     return s
 
+from decimal import Decimal, ROUND_HALF_UP
+
 def money(n):
-    return f"${n:,.2f}"
+    # snap binary float noise at 6 decimals, then round half-up to cents:
+    # matches the JS engine's r2 exactly (f-string round-half-even and raw
+    # float noise both disagreed on half-cent boundaries)
+    snapped = Decimal(str(n)).quantize(Decimal("0.000001"), rounding=ROUND_HALF_UP)
+    return "${:,.2f}".format(snapped.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
 
 def write_if_changed(path, content):
     """Skip identical writes so file mtimes stay honest (sitemap lastmod reads
@@ -102,6 +108,8 @@ for code, s in states.items():
     )
 
     faq2 = f"At the average combined rate of {cr}%, sales tax on a $100 purchase in {name} is {money(100*combined/100)}, for a total of {money(100*(1+combined/100))}."
+    if s["uez"]:
+        faq2 = f"At the standard statewide rate of {sr}%, sales tax on a $100 purchase in {name} is {money(100*combined/100)}, for a total of {money(100*(1+combined/100))}. Qualifying urban enterprise zone sellers charge half that rate."
     if s["get"]:
         faq2 = f"The combined GET-plus-surcharge burden of {cr}% on a $100 purchase is {money(100*combined/100)}, a total of {money(100*(1+combined/100))}; sellers passing on the tax at the lawful maximum of 4.712% would charge $104.71."
     if s["none"] and s["local"] == 0:
@@ -157,7 +165,7 @@ for code, s in states.items():
       <p style="font-size:0.94rem">{rate_sentence}{notes_html} Rates from the {TF_LINK}.</p>
       <div class="table-wrap">
       <table>
-        <thead><tr><th>Purchase</th><th>Sales tax (avg {cr}%)</th><th>Total</th></tr></thead>
+        <thead><tr><th>Purchase</th><th>Sales tax ({("avg " + cr) if not s["uez"] else sr}%)</th><th>Total</th></tr></thead>
         <tbody>
 {rows}
         </tbody>
