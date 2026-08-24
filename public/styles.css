@@ -179,3 +179,10 @@ select.input-el:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(-
   background-attachment: local, local, scroll, scroll;
 }
 .table-wrap--scrollhint table { background: transparent; }
+
+/* Google Preferred Sources deeplink in the footer (2026-08-24). A plain link, no third-party script. */
+.site-footer { flex-wrap: wrap; }
+.site-footer .gps-wrap { flex: 0 0 100%; width: 100%; display: flex; justify-content: center; margin-top: 6px; }
+.site-footer a.gps-link { display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border: 1px solid rgba(148,163,184,.35); border-radius: 999px; color: rgba(203,213,225,.9); font-weight: 500; line-height: 1.2; text-decoration: none; transition: color .2s, border-color .2s, background-color .2s; }
+.site-footer a.gps-link:hover, .site-footer a.gps-link:focus-visible { color: #fff; border-color: rgba(203,213,225,.7); background-color: rgba(255,255,255,.05); text-decoration: none; }
+.site-footer a.gps-link svg { width: 14px; height: 14px; flex: none; }
